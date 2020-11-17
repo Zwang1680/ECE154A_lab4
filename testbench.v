@@ -1,16 +1,12 @@
 module testbench();
 reg clk;
 reg reset = 1;
-wire [31:0] writedata, dataadr;
-wire memwrite;
 // instantiate device to be tested
-top dut (clk, reset, writedata, dataadr, memwrite);
-// initialize test
+top dut (clk, reset);
+//initialize test
 initial begin
-    forever begin
-      reset <= ~clk;
-      #100;
-    end
+    #2;
+    reset <= ~reset;
   end
 // generate clock to sequence tests
 initial begin
@@ -22,7 +18,7 @@ initial begin
 // check results
 always @(negedge clk)
 begin
-    #200
+    #100
     $stop;
 // if (memwrite) begin
 // if (dataadr === 84 & writedata === 7) begin

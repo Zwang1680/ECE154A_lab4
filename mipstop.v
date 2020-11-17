@@ -1,8 +1,6 @@
 // Top level system including MIPS and memories
 
-module top(input clk, reset,
-output  [31:0] writedata, dataadr,
-output  memwrite);
+module top(input clk, reset);
 
   wire [31:0] pc, instr, readdata;
   
