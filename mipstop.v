@@ -3,6 +3,8 @@
 module top(input clk, reset);
 
   wire [31:0] pc, instr, readdata;
+  wire [31:0] writedata, dataadr;
+  wire        memwrite;
   
   // processor and memories are instantiated here 
   mips mips(clk, reset, pc, instr, memwrite, dataadr, writedata, readdata);
