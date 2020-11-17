@@ -35,10 +35,12 @@ module controller(input   [5:0] op, funct,
                   output  [2:0] alucontrol);
 wire [1:0] aluop;
 wire branch;
+wire bne;
 maindec md(op, memtoreg, memwrite, branch,
 alusrc, regdst, regwrite, jump, aluop);
 aludec ad(funct, aluop, alucontrol);
-assign pcsrc = branch & zero;
+mux2 bnemux(zero, ~zero, op[0], bne)
+assign pcsrc = branch & bne;
 
 
 endmodule
@@ -58,7 +60,7 @@ module datapath(input          clk, reset,
 wire [4:0] writereg;
 wire [31:0] pcnext, pcnextbr, pcplus4, pcbranch;
 wire [31:0] signimm, signimmsh;
-wire [31:0] srca, srcb;
+wire [31:0] srca, srcb, oriext;
 wire [31:0] result;
 // next PC logic
 flopr #(32) pcreg(clk, reset, pcnext, pc);
@@ -77,7 +79,9 @@ mux2 #(32) resmux(aluout, readdata, memtoreg, result);
 signext se(instr[15:0], signimm);
 // ALU logic
 mux2 #(32) srcbmux(writedata, signimm, alusrc, srcb);
-alu alu(srca, srcb, alucontrol, aluout, zero);              
+//we need to use one more mux before we input into the alu to make sure our ori wasn't activated
+zeroextend oriextend(instr[15:0], aluop, srcb, oriext);
+alu alu(srca, oriext, alucontrol, aluout, zero);              
 endmodule
 
 module regfile(input  clk,
@@ -170,4 +174,12 @@ module mux2 #(parameter WIDTH = 8)
 input  s,
 output  [WIDTH-1:0] y);
 assign y = s ? d1 : d0;
+endmodule
+
+//We combine the zero extend and the mux, if aluop is 11 then output zeroextend else output srcb
+module zeroextend(input [15:0]a,
+                input [1:0]aluop,
+                input [31:0]srcb,
+                output [31:0]b);
+    assign b = (aluop == 2'b11) ? {{16{1'b0}}, a} : {srcb};
 endmodule
