@@ -19,7 +19,7 @@ begin
     // #100
     // $stop;
 if (dut.memwrite) begin
-if (dut.dataadr === 84 & dut.writedata === 7) begin
+if (dut.dataadr === 84 & dut.writedata === -33022) begin
 $display("Simulation succeeded");
 $stop;
 end else if (dut.dataadr !== 80) begin

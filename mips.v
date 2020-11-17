@@ -39,7 +39,8 @@ wire bne;
 maindec md(op, memtoreg, memwrite, branch,
 alusrc, regdst, regwrite, jump, aluop);
 aludec ad(funct, aluop, alucontrol);
-mux2 bnemux(zero, ~zero, op[0], bne)
+// using the difference between bne and beq to determine weather we need to use this mux or not to change when beq is used
+mux2 bnemux(zero, ~zero, op[0], bne);
 assign pcsrc = branch & bne;
 
 
