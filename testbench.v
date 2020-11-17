@@ -1,6 +1,6 @@
 module testbench();
 reg clk;
-reg reset = 0;
+reg reset = 1;
 wire [31:0] writedata, dataadr;
 wire memwrite;
 // instantiate device to be tested
@@ -9,7 +9,7 @@ top dut (clk, reset, writedata, dataadr, memwrite);
 initial begin
     forever begin
       reset <= ~clk;
-      #22;
+      #100;
     end
   end
 // generate clock to sequence tests
