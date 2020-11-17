@@ -107,7 +107,7 @@ output  [1:0] aluop);
 wire [8:0] controls;
 assign {regwrite, regdst, alusrc, branch, memwrite,
 memtoreg, jump, aluop} = controls;
-always_comb
+always @*
 case(op)
 6'b000000: controls <= 9'b110000010; // RTYPE
 6'b100011: controls <= 9'b101001000; // LW
