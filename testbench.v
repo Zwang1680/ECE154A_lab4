@@ -19,7 +19,7 @@ end
 always @(negedge clk)
 begin
     #200
-    $stop
+    $stop;
 // if (memwrite) begin
 // if (dataadr === 84 & writedata === 7) begin
 // $display("Simulation succeeded");
