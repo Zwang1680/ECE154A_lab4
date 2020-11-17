@@ -9,12 +9,10 @@ initial begin
     reset <= ~reset;
   end
 // generate clock to sequence tests
-initial begin
-    forever begin
-      clk <= ~clk;
-      #5;
-    end
-  end
+always
+begin
+clk <= 1; # 5; clk <= 0; # 5;
+end
 // check results
 always @(negedge clk)
 begin
