@@ -104,7 +104,7 @@ output  branch, alusrc,
 output  regdst, regwrite,
 output  jump,
 output  [1:0] aluop);
-wire [8:0] controls;
+reg [8:0] controls;
 assign {regwrite, regdst, alusrc, branch, memwrite,
 memtoreg, jump, aluop} = controls;
 always @*
@@ -121,7 +121,7 @@ endmodule
 
 module aludec(input  [5:0] funct,
 input  [1:0] aluop,
-output  [2:0] alucontrol);
+output reg [2:0] alucontrol);
 always @*
 case(aluop)
 2'b00: alucontrol <= 3'b010; // add (for lw/sw/addi)
