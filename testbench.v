@@ -6,15 +6,19 @@ wire memwrite;
 // instantiate device to be tested
 top dut (clk, reset, writedata, dataadr, memwrite);
 // initialize test
-// initial
-// begin
-// reset <= 1; # 22; reset <= 0;
-// end
+initial begin
+    forever begin
+      reset <= ~clk;
+      #22;
+    end
+  end
 // generate clock to sequence tests
-always
-begin
-clk <= 1; # 5; clk <= 0; # 5;
-end
+initial begin
+    forever begin
+      clk <= ~clk;
+      #5;
+    end
+  end
 // check results
 always @(negedge clk)
 begin
