@@ -81,7 +81,7 @@ signext se(instr[15:0], signimm);
 // ALU logic
 mux2 #(32) srcbmux(writedata, signimm, alusrc, srcb);
 //we need to use one more mux before we input into the alu to make sure our ori wasn't activated
-zeroextend oriextend(instr[15:0], aluop, srcb, oriext);
+zeroextend oriextend(instr[15:0], alucontrol, srcb, oriext);
 alu alu(srca, oriext, alucontrol, aluout, zero);              
 endmodule
 
@@ -179,8 +179,8 @@ endmodule
 
 //We combine the zero extend and the mux, if aluop is 11 then output zeroextend else output srcb
 module zeroextend(input [15:0]a,
-                input [1:0]aluop,
+                input [2:0]alucontrol,
                 input [31:0]srcb,
                 output [31:0]b);
-    assign b = (aluop == 2'b11) ? {{16{1'b0}}, a} : {srcb};
+    assign b = (alucontrol == 3'b001) ? {{16{1'b0}}, a} : {srcb};
 endmodule
