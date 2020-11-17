@@ -4,7 +4,7 @@ reg reset;
 wire [31:0] writedata, dataadr;
 wire memwrite;
 // instantiate device to be tested
-top dut (clk, reset, writedata, dataadr, memwrite);
+top dut (clk, reset);
 // initialize test
 initial
 begin
