@@ -120,8 +120,8 @@ case(op)
 6'b000100: controls <= 9'b000100001; // BEQ
 6'b001000: controls <= 9'b101000000; // ADDI
 6'b000010: controls <= 9'b000000100; // J
-6'b001101: controls <= 9'b101000011; //ori
-6'b000101: controls <= 9'b000100001; //bne
+6'b001101: controls <= 9'b101000011; //ori ADDED FOR LAB 4
+6'b000101: controls <= 9'b000100001; //bne ADDED FOR LAB 4
 default: controls <= 9'bxxxxxxxxx; // illegal op
 endcase
 endmodule
@@ -133,7 +133,7 @@ always @*
 case(aluop)
 2'b00: alucontrol <= 3'b010; // add (for lw/sw/addi)
 2'b01: alucontrol <= 3'b110; // sub (for beq)
-2'b11: alucontrol <= 3'b001; // or (for ori)
+2'b11: alucontrol <= 3'b001; // or (for ori) ADDED FOR LAB 4
 default: case(funct) // R-type instructions
 6'b100000: alucontrol <= 3'b010; // add
 6'b100010: alucontrol <= 3'b110; // sub
