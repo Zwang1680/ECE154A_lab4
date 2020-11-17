@@ -80,7 +80,7 @@ mux2 #(32) resmux(aluout, readdata, memtoreg, result);
 signext se(instr[15:0], signimm);
 // ALU logic
 mux2 #(32) srcbmux(writedata, signimm, alusrc, srcb);
-//we need to use one more mux before we input into the alu to make sure our ori wasn't activated
+//we need to use one more mux before we input into the alu to make sure our ori affects the proper inputs
 zeroextend oriextend(instr[15:0], alucontrol, srcb, oriext);
 alu alu(srca, oriext, alucontrol, aluout, zero);              
 endmodule
