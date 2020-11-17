@@ -20,11 +20,11 @@ always @(negedge clk)
 begin
     // #100
     // $stop;
-if (memwrite) begin
-if (dataadr === 84 & writedata === 7) begin
+if (dut.memwrite) begin
+if (dut.dataadr === 84 & dut.writedata === 7) begin
 $display("Simulation succeeded");
 $stop;
-end else if (dataadr !== 80) begin
+end else if (dut.dataadr !== 80) begin
 $display("Simulation failed");
 $stop;
 end
